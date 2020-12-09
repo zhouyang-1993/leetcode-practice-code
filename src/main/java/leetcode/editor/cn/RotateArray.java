@@ -2,56 +2,56 @@ package leetcode.editor.cn;
 
 import java.util.Arrays;
 
-public class RotateArray{
+public class RotateArray {
 
-    public static void main(String[]args){
-        Solution solution= new RotateArray().new Solution();
-        int[] nums = new int[]{1,2,3,4,5,6};
-        solution.rotate(nums,4);
-        Arrays.stream(nums).forEach(System.out :: println);
+    public static void main(String[] args) {
+        Solution solution = new RotateArray().new Solution();
+        int[] nums = new int[]{1, 2, 3, 4, 5, 6};
+        solution.rotate(nums, 4);
+        Arrays.stream(nums).forEach(System.out::println);
 
     }
-    
+
     //NO.189
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public void rotate(int[] nums, int k) {
-        int n = nums.length;
-        k = k % n;
-        if(k == 0){
-            return;
-        }
-        Integer temp = null;
-        int i = 0;
-        int lastBegin = i;
-        int moveCount = 0;
-        for(;;){
-            if(moveCount == n){
-                break;
+    class Solution {
+        public void rotate(int[] nums, int k) {
+            int n = nums.length;
+            k = k % n;
+            if (k == 0) {
+                return;
             }
-            if(temp != null && i % n == lastBegin ){
-                temp = null;
-                i = lastBegin + 1;
-                lastBegin = i;
-            }else {
-                i = i % n;
-            }
-            for(; i < n; i += k){
-                int nexIndex = (i + k) >= n ? (i + k) % n : (i + k);
-                if(temp == null){
-                    temp = nums[nexIndex];
-                    nums[nexIndex] = nums[i];
-                }else{
-                    int t =  nums[nexIndex];
-                    nums[nexIndex] = temp;
-                    temp = t;
+            Integer temp = null;
+            int i = 0;
+            int lastBegin = i;
+            int moveCount = 0;
+            for (; ; ) {
+                if (moveCount == n) {
+                    break;
                 }
-                moveCount++;
+                if (temp != null && i % n == lastBegin) {
+                    temp = null;
+                    i = lastBegin + 1;
+                    lastBegin = i;
+                } else {
+                    i = i % n;
+                }
+                for (; i < n; i += k) {
+                    int nexIndex = (i + k) >= n ? (i + k) % n : (i + k);
+                    if (temp == null) {
+                        temp = nums[nexIndex];
+                        nums[nexIndex] = nums[i];
+                    } else {
+                        int t = nums[nexIndex];
+                        nums[nexIndex] = temp;
+                        temp = t;
+                    }
+                    moveCount++;
+                }
             }
-        }
 
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 

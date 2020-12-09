@@ -5,68 +5,71 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BinaryTreeRightSideView{
+public class BinaryTreeRightSideView {
 
-    public static void main(String[]args){
-        Solution solution= new BinaryTreeRightSideView().new Solution();
+    public static void main(String[] args) {
+        Solution solution = new BinaryTreeRightSideView().new Solution();
     }
-    
+
     //NO.199
 //leetcode submit region begin(Prohibit modification and deletion)
 
-//Definition for a binary tree node.
-public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
+    //Definition for a binary tree node.
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-class Solution {
-    public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> rightView = new ArrayList<>();
-        if(null == root){
-            return rightView;
-        }
-        breadthFirst(root, rightView);
-        return rightView;
-
-    }
-
-    private void depthFitst(TreeNode node, int depth, List<Integer> rightView){
-        if(depth > rightView.size()){
-            rightView.add(node.val);
-        }
-        if(node.right != null){
-            depthFitst(node.right, depth + 1, rightView);
-        }
-        if(node.left != null){
-            depthFitst(node.left, depth + 1, rightView);
+        TreeNode(int x) {
+            val = x;
         }
     }
 
-    private void breadthFirst(TreeNode node, List<Integer> rightView){
-        Queue<TreeNode> nodeQueue= new LinkedList<>();
-        nodeQueue.offer(node);
-        for(; nodeQueue.size() > 0;){
-            int size = nodeQueue.size();
-            for(int i = 0; i < size; i++){
-                TreeNode tn = nodeQueue.poll();
-                if(null != tn.left){
-                    nodeQueue.offer(tn.left);
-                }
-                if(null != tn.right){
-                    nodeQueue.offer(tn.right);
-                }
-                if(i == size-1){
-                    rightView.add(tn.val);
-                }
+    class Solution {
+        public List<Integer> rightSideView(TreeNode root) {
+            List<Integer> rightView = new ArrayList<>();
+            if (null == root) {
+                return rightView;
             }
+            breadthFirst(root, rightView);
+            return rightView;
 
         }
-    }
 
-}
+        private void depthFitst(TreeNode node, int depth, List<Integer> rightView) {
+            if (depth > rightView.size()) {
+                rightView.add(node.val);
+            }
+            if (node.right != null) {
+                depthFitst(node.right, depth + 1, rightView);
+            }
+            if (node.left != null) {
+                depthFitst(node.left, depth + 1, rightView);
+            }
+        }
+
+        private void breadthFirst(TreeNode node, List<Integer> rightView) {
+            Queue<TreeNode> nodeQueue = new LinkedList<>();
+            nodeQueue.offer(node);
+            for (; nodeQueue.size() > 0; ) {
+                int size = nodeQueue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode tn = nodeQueue.poll();
+                    if (null != tn.left) {
+                        nodeQueue.offer(tn.left);
+                    }
+                    if (null != tn.right) {
+                        nodeQueue.offer(tn.right);
+                    }
+                    if (i == size - 1) {
+                        rightView.add(tn.val);
+                    }
+                }
+
+            }
+        }
+
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 

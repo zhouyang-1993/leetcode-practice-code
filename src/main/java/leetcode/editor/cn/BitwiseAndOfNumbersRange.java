@@ -1,24 +1,24 @@
 package leetcode.editor.cn;
 
-public class BitwiseAndOfNumbersRange{
+public class BitwiseAndOfNumbersRange {
 
-    public static void main(String[]args){
-        Solution solution= new BitwiseAndOfNumbersRange().new Solution();
+    public static void main(String[] args) {
+        Solution solution = new BitwiseAndOfNumbersRange().new Solution();
     }
-    
+
     //NO.201
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int rangeBitwiseAnd(int m, int n) {
-        int shift = 0;
-        while(m < n){
-            m = m >> 1;
-            n = n >> 1;
-            shift ++;
+    class Solution {
+        public int rangeBitwiseAnd(int m, int n) {
+            int shift = 0;
+            while (m < n) {
+                m = m >> 1;
+                n = n >> 1;
+                shift++;
+            }
+            return m << shift;
         }
-        return m << shift;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 

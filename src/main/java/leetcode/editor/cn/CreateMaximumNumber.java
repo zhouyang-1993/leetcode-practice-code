@@ -1,11 +1,11 @@
 package leetcode.editor.cn;
 
-public class CreateMaximumNumber{
+public class CreateMaximumNumber {
 
-    public static void main(String[]args){
-        Solution solution= new CreateMaximumNumber().new Solution();
+    public static void main(String[] args) {
+        Solution solution = new CreateMaximumNumber().new Solution();
     }
-    
+
     //NO.321
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {

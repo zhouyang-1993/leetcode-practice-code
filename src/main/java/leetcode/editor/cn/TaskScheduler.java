@@ -1,45 +1,46 @@
 package leetcode.editor.cn;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TaskScheduler{
+public class TaskScheduler {
 
-    public static void main(String[]args){
-        Solution solution= new TaskScheduler().new Solution();
-        System.out.println(solution.leastInterval(new char[]{'A','A','A','B','B','B'}, 2));
+    public static void main(String[] args) {
+        Solution solution = new TaskScheduler().new Solution();
+        System.out.println(solution.leastInterval(new char[]{'A', 'A', 'A', 'B', 'B', 'B'}, 2));
     }
-    
+
     //NO.621
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+    class Solution {
 
-    public int leastInterval(char[] tasks, int n) {
-        // user a map to store the last execute time for evey task.
-        Map<Character,Integer> mapDone = new HashMap<>();
-        int maxCount = 0;
-        for(int i = 0; i < tasks.length; i++){
-            char key = tasks[i];
-            if(!mapDone.containsKey(key)){
-                mapDone.put(key, 1);
-            }else{
-                int count = mapDone.get(key) + 1;
-                mapDone.put(key, count);
-                if(count > maxCount){
-                    maxCount = count;
+        public int leastInterval(char[] tasks, int n) {
+            // user a map to store the last execute time for evey task.
+            Map<Character, Integer> mapDone = new HashMap<>();
+            int maxCount = 0;
+            for (int i = 0; i < tasks.length; i++) {
+                char key = tasks[i];
+                if (!mapDone.containsKey(key)) {
+                    mapDone.put(key, 1);
+                } else {
+                    int count = mapDone.get(key) + 1;
+                    mapDone.put(key, count);
+                    if (count > maxCount) {
+                        maxCount = count;
+                    }
                 }
             }
+            int maxCountCount = 0;
+            for (int c : mapDone.values()) {
+                if (c == maxCount) {
+                    maxCountCount++;
+                }
+            }
+            return Math.max(tasks.length, (maxCount - 1) * (n + 1) + maxCountCount);
         }
-        int maxCountCount=0;
-        for(int c : mapDone.values()){
-           if(c == maxCount){
-               maxCountCount ++;
-           }
-        }
-        return Math.max(tasks.length, (maxCount - 1) * (n+1) + maxCountCount);
+
+
     }
-
-
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 

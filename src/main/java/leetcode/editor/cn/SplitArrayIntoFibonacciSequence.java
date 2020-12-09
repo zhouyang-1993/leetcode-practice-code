@@ -3,106 +3,105 @@ package leetcode.editor.cn;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplitArrayIntoFibonacciSequence{
+public class SplitArrayIntoFibonacciSequence {
 
-    public static void main(String[]args){
-        Solution solution= new SplitArrayIntoFibonacciSequence().new Solution();
+    public static void main(String[] args) {
+        Solution solution = new SplitArrayIntoFibonacciSequence().new Solution();
 
         System.out.println(solution.splitIntoFibonacci("11235813"));
     }
-    
+
     //NO.842
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+    class Solution {
 
 
-    public List<Integer> splitIntoFibonacci(String S) {
-        int n = S.length();
-        if(n < 3){
-            return new ArrayList<>();
-        }
-        int maxN1 = n/2;
-        List<Integer> res = new ArrayList<>();
-
-        for(int n1 = 1; n1 < maxN1 + 1; n1++){
-            res = new ArrayList<>();
-            String n1Str = S.substring(n - n1);
-            Long n1Value = Long.parseLong(n1Str);
-            if(n1Value > Integer.MAX_VALUE){
-                break;
+        public List<Integer> splitIntoFibonacci(String S) {
+            int n = S.length();
+            if (n < 3) {
+                return new ArrayList<>();
             }
-            if(isFb(S.substring(0,n - n1), n1Value.intValue(), n1, res)){
-                res.add(n1Value.intValue());
-                break;
+            int maxN1 = n / 2;
+            List<Integer> res = new ArrayList<>();
+
+            for (int n1 = 1; n1 < maxN1 + 1; n1++) {
+                res = new ArrayList<>();
+                String n1Str = S.substring(n - n1);
+                Long n1Value = Long.parseLong(n1Str);
+                if (n1Value > Integer.MAX_VALUE) {
+                    break;
+                }
+                if (isFb(S.substring(0, n - n1), n1Value.intValue(), n1, res)) {
+                    res.add(n1Value.intValue());
+                    break;
+                }
             }
+            return res;
         }
-        return res;
-    }
 
         /**
-         *
          * @param s
          * @param lastValue
-         * @param n length of lastValue
+         * @param n         length of lastValue
          */
-    private boolean isFb(String s, int lastValue, int n, List<Integer> res){
-        //length of the second last value.
-        int n2 = 1;
-        //n2 is between 1 ~ min(n, s.length-1);
-        int maxLength = Math.min(n, s.length()-1);
-        for(; n2 < maxLength + 1; n2++){
-            String n2Str = s.substring(s.length() - n2);
-            Long n2Value = Long.parseLong(n2Str);
-            if(n2Value > Integer.MAX_VALUE){
-                break;
-            }
-            Integer n3Value = lastValue - n2Value.intValue();
-            if(n3Value >= 0){
-                Integer n3 = n3Value.toString().length();
-                if(n2 + n3 <= s.length()){
-                    String n3Str = s.substring(s.length() - n2 -n3,s.length() - n2);
-                    if(n3Str.equals(n3Value.toString())){
-                        if(n3 + n2 == s.length()){
-                            res.add(n3Value);
-                            res.add(n2Value.intValue());
-                            return true;
-                        }else{
-                            if(isFb2(s.substring(0, s.length() - n2 -n3),n3Value, n2Value.intValue(), res)){
+        private boolean isFb(String s, int lastValue, int n, List<Integer> res) {
+            //length of the second last value.
+            int n2 = 1;
+            //n2 is between 1 ~ min(n, s.length-1);
+            int maxLength = Math.min(n, s.length() - 1);
+            for (; n2 < maxLength + 1; n2++) {
+                String n2Str = s.substring(s.length() - n2);
+                Long n2Value = Long.parseLong(n2Str);
+                if (n2Value > Integer.MAX_VALUE) {
+                    break;
+                }
+                Integer n3Value = lastValue - n2Value.intValue();
+                if (n3Value >= 0) {
+                    Integer n3 = n3Value.toString().length();
+                    if (n2 + n3 <= s.length()) {
+                        String n3Str = s.substring(s.length() - n2 - n3, s.length() - n2);
+                        if (n3Str.equals(n3Value.toString())) {
+                            if (n3 + n2 == s.length()) {
                                 res.add(n3Value);
                                 res.add(n2Value.intValue());
+                                return true;
+                            } else {
+                                if (isFb2(s.substring(0, s.length() - n2 - n3), n3Value, n2Value.intValue(), res)) {
+                                    res.add(n3Value);
+                                    res.add(n2Value.intValue());
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public boolean isFb2(String s, int n2Value, int n3Value, List<Integer> res) {
+            Integer n1Value = n3Value - n2Value;
+            if (n1Value >= 0) {
+                Integer n1 = n1Value.toString().length();
+                if (n1 <= s.length()) {
+                    String n1Str = s.substring(s.length() - n1);
+                    if (n1Str.equals(n1Value.toString())) {
+                        if (n1 == s.length()) {
+                            res.add(n1Value);
+                            return true;
+                        } else {
+                            if (isFb2(s.substring(0, s.length() - n1), n1Value, n2Value, res)) {
+                                res.add(n1Value);
                                 return true;
                             }
                         }
                     }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
-    public boolean isFb2(String s, int n2Value, int n3Value, List<Integer> res){
-        Integer n1Value = n3Value - n2Value;
-        if(n1Value >= 0) {
-            Integer n1 = n1Value.toString().length();
-            if (n1 <= s.length()) {
-                String n1Str = s.substring(s.length() - n1);
-                if (n1Str.equals(n1Value.toString())) {
-                    if (n1 == s.length()) {
-                        res.add(n1Value);
-                        return true;
-                    } else {
-                        if (isFb2(s.substring(0, s.length() - n1), n1Value, n2Value, res)) {
-                            res.add(n1Value);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
     }
-
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 
