@@ -16,7 +16,7 @@ public class RepeatedDnaSequences{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 
-        //AAAAAAAAAAA
+        // FIXME 位运算，典型
         public List<String> findRepeatedDnaSequences(String s) {
             int L = 10, n = s.length();
             if (n <= L) return new ArrayList();

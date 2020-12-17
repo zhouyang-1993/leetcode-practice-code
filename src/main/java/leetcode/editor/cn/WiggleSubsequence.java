@@ -6,13 +6,56 @@ public class WiggleSubsequence{
 
     public static void main(String[]args){
         Solution solution= new WiggleSubsequence().new Solution();
-        System.out.println(solution.wiggleMaxLength(new int[]{0,0}));
+        System.out.println(solution.wiggleMaxLength(new int[]{1,3,3,3,2,5}));
     }
     
     //NO.376
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int wiggleMaxLength(int[] nums) {
+
+
+    public int wiggleMaxLength(int[] nums){
+        //dynamic programing algorithm
+        // f(n) means the max len of wiggle
+        // then f(n + 1) determine by num[n+1] - num[n] compare with num[n]-[nums[n-1]
+
+
+        int n = nums.length;
+        if(n < 2){
+            return n;
+        }
+        int[] res = new int[n];
+        res[0] = 1;
+        if(nums[1] != nums[0]){
+            res[1] = 2;
+        }else{
+            res[1] = 1;
+        }
+        int max = res[1];
+        for(int i = 2;i < n; i++){
+            int current = nums[i] - nums[i-1];
+            int c = 1;
+            int last = nums[i-c] - nums[i-c-1];
+            while(last == 0 && i > c + 1){
+                c++;
+                last = nums[i-c] - nums[i-c-1];
+            }
+            if(last * current < 0 || (last == 0 && current != 0)){
+                res[i] = res[i-1] + 1;
+            }else{
+                res[i] = res[i-1];
+            }
+            if(res[i] > max){
+                max = res[i];
+            }
+            System.out.println("res["+i+"]=" + res[i]);
+        }
+        return max;
+    }
+
+
+
+    public int wiggleMaxLength2(int[] nums) {
         int n = nums.length;
         if(n < 2){
             return n;
@@ -42,10 +85,6 @@ class Solution {
                 lastStatus = currentStatus;
             }
         }
-
-
-
-
         return maxLen + 1;
     }
 }
